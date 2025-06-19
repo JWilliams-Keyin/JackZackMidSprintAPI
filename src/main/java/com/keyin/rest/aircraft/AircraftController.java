@@ -41,5 +41,18 @@ public class AircraftController {
         return searchResults;
     }
 
+    @PostMapping("/aircraft")
+    public Aircraft createAircraft(@RequestBody Aircraft aircraft) {
+        return aircraftService.createAircraft(aircraft);
+    }
 
+    @PutMapping("/aircraft/{id}")
+    public ResponseEntity<Aircraft> updateAircraft(@PathVariable long id, @RequestBody Aircraft aircraft) {
+        return ResponseEntity.ok(aircraftService.updateAircraft(id, aircraft));
+    }
+
+    @DeleteMapping("/aircraft/{id}")
+    public void deleteAircraftById(@PathVariable long id) {
+        aircraftService.deleteAircraftById(id);
+    }
 }
