@@ -41,4 +41,19 @@ public class AirportController {
 
         return searchResults;
     }
+
+    @PostMapping("/airport")
+    public Airport createAirport(@RequestBody Airport airport) {
+        return airportService.createAirport(airport);
+    }
+
+    @PutMapping("/airport/{id}")
+    public ResponseEntity<Airport> updateAirport(@PathVariable long id, @RequestBody Airport airport) {
+        return ResponseEntity.ok(airportService.updateAirport(id, airport));
+    }
+
+    @DeleteMapping("/aircraft/{id}")
+    public void deleteAirportById(@PathVariable long id) {
+        airportService.deleteAirportById(id);
+    }
 }
