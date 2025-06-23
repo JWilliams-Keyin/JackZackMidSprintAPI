@@ -1,6 +1,10 @@
 package com.keyin.rest.aircraft;
 
+import com.keyin.rest.airport.Airport;
+import com.keyin.rest.passenger.Passenger;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 public class Aircraft {
     @Id
@@ -11,6 +15,12 @@ public class Aircraft {
     public String aircraftType;
     public String airlineName;
     public int numberOfPassengers;
+
+    @OneToMany(mappedBy = "aircraft")
+    private List<Passenger> aircraftPassengers;
+
+    @OneToMany(mappedBy = "aircraft")
+    private List<Airport> aircraftAirports;
 
     public Aircraft() {
     }
@@ -40,6 +50,14 @@ public class Aircraft {
         return numberOfPassengers;
     }
 
+    public List<Passenger> getAircraftPassengers() {
+        return aircraftPassengers;
+    }
+
+    public List<Airport> getAircraftAirports() {
+        return aircraftAirports;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -54,5 +72,13 @@ public class Aircraft {
 
     public void setNumberOfPassengers(int numberOfPassengers) {
         this.numberOfPassengers = numberOfPassengers;
+    }
+
+    public void setAircraftPassengers(List<Passenger> aircraftPassengers) {
+        this.aircraftPassengers = aircraftPassengers;
+    }
+
+    public void setAircraftAirports(List<Airport> aircraftAirports) {
+        this.aircraftAirports = aircraftAirports;
     }
 }
