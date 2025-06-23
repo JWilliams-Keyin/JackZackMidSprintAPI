@@ -1,5 +1,6 @@
 package com.keyin.rest.airport;
 
+import com.keyin.rest.city.City;
 import jakarta.persistence.*;
 
 public class Airport {
@@ -10,6 +11,9 @@ public class Airport {
 
     public String airportName;
     public String airportCode;
+
+    @OneToOne(mappedBy = "airport")
+    private City airportCity;
 
     public Airport() {
 
@@ -36,6 +40,10 @@ public class Airport {
         return airportCode;
     }
 
+    public City getAirportCity() {
+        return airportCity;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -46,5 +54,9 @@ public class Airport {
 
     public void setAirportCode(String airportCode) {
         this.airportCode = airportCode;
+    }
+
+    public void setAirportCity(City airportCity) {
+        this.airportCity = airportCity;
     }
 }
