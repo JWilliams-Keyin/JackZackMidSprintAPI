@@ -18,15 +18,9 @@ public class Passenger {
     private String phoneNumber;
 
     @ManyToOne
-    @JoinColumn(name = "city_id")
     private City city;
 
     @ManyToMany
-    @JoinTable(
-            name = "passenger_aircraft",
-            joinColumns = @JoinColumn(name = "passenger_id"),
-            inverseJoinColumns = @JoinColumn(name = "aircraft_id")
-    )
     private List<Aircraft> aircraft;
 
     public Passenger() {}

@@ -52,7 +52,7 @@ public class AirportController {
         return ResponseEntity.ok(airportService.updateAirport(id, airport));
     }
 
-    @DeleteMapping("/aircraft/{id}")
+    @DeleteMapping("/airport/{id}")
     public void deleteAirportById(@PathVariable long id) {
         airportService.deleteAirportById(id);
     }
