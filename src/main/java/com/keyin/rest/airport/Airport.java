@@ -3,6 +3,7 @@ package com.keyin.rest.airport;
 import com.keyin.rest.city.City;
 import jakarta.persistence.*;
 
+@Entity
 public class Airport {
     @Id
     @SequenceGenerator(name = "airport_sequence", sequenceName = "airport_sequence", allocationSize = 1, initialValue = 1)
@@ -12,7 +13,7 @@ public class Airport {
     public String airportName;
     public String airportCode;
 
-    @OneToOne(mappedBy = "airport")
+    @OneToOne
     private City airportCity;
 
     public Airport() {

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+@Entity
 public class Aircraft {
     @Id
     @SequenceGenerator(name = "aircraft_sequence", sequenceName = "aircraft_sequence", allocationSize = 1, initialValue = 1)
@@ -16,10 +17,10 @@ public class Aircraft {
     public String airlineName;
     public int numberOfPassengers;
 
-    @OneToMany(mappedBy = "aircraft")
+    @OneToMany
     private List<Passenger> aircraftPassengers;
 
-    @OneToMany(mappedBy = "aircraft")
+    @OneToMany
     private List<Airport> aircraftAirports;
 
     public Aircraft() {

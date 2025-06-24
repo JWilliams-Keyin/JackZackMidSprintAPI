@@ -16,7 +16,7 @@ public class City {
     private String state;
     private int population;
 
-    @OneToMany(mappedBy = "city")
+    @OneToMany
     private List<Airport> airports;
 
     public City() {}
