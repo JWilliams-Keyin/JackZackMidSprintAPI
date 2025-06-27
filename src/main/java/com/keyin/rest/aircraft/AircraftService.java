@@ -46,6 +46,8 @@ public class AircraftService {
             aircraftToUpdate.setAircraftType(updatedAircraft.getAircraftType());
             aircraftToUpdate.setAirlineName(updatedAircraft.getAirlineName());
             aircraftToUpdate.setNumberOfPassengers(updatedAircraft.getNumberOfPassengers());
+            aircraftToUpdate.setAircraftPassengers(updatedAircraft.getAircraftPassengers());
+            aircraftToUpdate.setAircraftAirports(updatedAircraft.getAircraftAirports());
 
             return aircraftRepository.save(aircraftToUpdate);
         }

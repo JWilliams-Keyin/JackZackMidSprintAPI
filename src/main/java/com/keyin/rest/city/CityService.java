@@ -33,6 +33,7 @@ public class CityService {
             cityToUpdate.setName(updatedCity.getName());
             cityToUpdate.setState(updatedCity.getState());
             cityToUpdate.setPopulation(updatedCity.getPopulation());
+            cityToUpdate.setAirports(cityToUpdate.getAirports());
 
             return cityRepository.save(cityToUpdate);
         }
