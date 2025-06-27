@@ -45,6 +45,7 @@ public class AirportService {
 
             airportToUpdate.setAirportName(updatedAirport.getAirportName());
             airportToUpdate.setAirportCode(updatedAirport.getAirportCode());
+            airportToUpdate.setAirportCity(updatedAirport.getAirportCity());
 
             return airportRepository.save(airportToUpdate);
         }
