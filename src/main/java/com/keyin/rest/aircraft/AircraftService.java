@@ -43,24 +43,27 @@ public class AircraftService {
     }
 
     public Aircraft createAircraft(Aircraft newAircraft) {
+        if (newAircraft.getAircraftPassengers() != null) {
+            List<Passenger> requestedPassengersList = new ArrayList<>();
 
-        List<Passenger> requestedPassengersList = new ArrayList<>();
-
-        for (Passenger passenger : newAircraft.getAircraftPassengers()) {
-            Passenger requestedPassenger = passengerRepository.findById(passenger.getId())
-                    .orElseThrow(() -> new RuntimeException("Passenger not found"));
-            requestedPassengersList.add(requestedPassenger);
+            for (Passenger passenger : newAircraft.getAircraftPassengers()) {
+                Passenger requestedPassenger = passengerRepository.findById(passenger.getId())
+                        .orElseThrow(() -> new RuntimeException("Passenger not found"));
+                requestedPassengersList.add(requestedPassenger);
+            }
+            newAircraft.setAircraftPassengers(requestedPassengersList);
         }
-        newAircraft.setAircraftPassengers(requestedPassengersList);
 
-        List<Airport> requestedAirportsList = new ArrayList<>();
+        if (newAircraft.getAircraftAirports() != null) {
+            List<Airport> requestedAirportsList = new ArrayList<>();
 
-        for (Airport airport : newAircraft.getAircraftAirports()) {
-            Airport requestedAirport = airportRepository.findById(airport.getId())
-                    .orElseThrow(() -> new RuntimeException("Airport not found"));
-            requestedAirportsList.add(requestedAirport);
+            for (Airport airport : newAircraft.getAircraftAirports()) {
+                Airport requestedAirport = airportRepository.findById(airport.getId())
+                        .orElseThrow(() -> new RuntimeException("Airport not found"));
+                requestedAirportsList.add(requestedAirport);
+            }
+            newAircraft.setAircraftAirports(requestedAirportsList);
         }
-        newAircraft.setAircraftAirports(requestedAirportsList);
 
         return aircraftRepository.save(newAircraft);
     }

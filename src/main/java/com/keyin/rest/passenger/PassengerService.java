@@ -27,14 +27,16 @@ public class PassengerService {
     }
 
     public Passenger createPassenger(Passenger passenger) {
-        List<Aircraft> requestedAircraftList = new ArrayList<>();
+        if (passenger.getAircraft() != null) {
+            List<Aircraft> requestedAircraftList = new ArrayList<>();
 
-        for (Aircraft aircraft : passenger.getAircraft()) {
-            Aircraft requestedAircraft = aircraftRepository.findById(aircraft.getId())
-                    .orElseThrow(() -> new RuntimeException("Aircraft not found"));
-            requestedAircraftList.add(requestedAircraft);
+            for (Aircraft aircraft : passenger.getAircraft()) {
+                Aircraft requestedAircraft = aircraftRepository.findById(aircraft.getId())
+                        .orElseThrow(() -> new RuntimeException("Aircraft not found"));
+                requestedAircraftList.add(requestedAircraft);
+            }
+            passenger.setAircraft(requestedAircraftList);
         }
-        passenger.setAircraft(requestedAircraftList);
 
         return passengerRepository.save(passenger);
     }

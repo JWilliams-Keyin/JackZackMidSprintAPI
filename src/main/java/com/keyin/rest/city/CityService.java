@@ -26,14 +26,16 @@ public class CityService {
     }
 
     public City createCity(City city) {
-        List<Airport> requestedAirportsList = new ArrayList<>();
+        if (city.getAirports() != null) {
+            List<Airport> requestedAirportsList = new ArrayList<>();
 
-        for (Airport airport : city.getAirports()) {
-            Airport requestedAirport = airportRepository.findById(airport.getId())
-                    .orElseThrow(() -> new RuntimeException("Airport not found"));
-            requestedAirportsList.add(requestedAirport);
+            for (Airport airport : city.getAirports()) {
+                Airport requestedAirport = airportRepository.findById(airport.getId())
+                        .orElseThrow(() -> new RuntimeException("Airport not found"));
+                requestedAirportsList.add(requestedAirport);
+            }
+            city.setAirports(requestedAirportsList);
         }
-        city.setAirports(requestedAirportsList);
 
         return cityRepository.save(city);
     }
