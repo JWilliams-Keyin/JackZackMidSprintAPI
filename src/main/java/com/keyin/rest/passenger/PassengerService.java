@@ -1,8 +1,12 @@
 package com.keyin.rest.passenger;
 
+import com.keyin.rest.aircraft.Aircraft;
+import com.keyin.rest.airport.Airport;
+import com.keyin.rest.aircraft.AircraftRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +14,8 @@ import java.util.Optional;
 public class PassengerService {
     @Autowired
     private PassengerRepository passengerRepository;
+    @Autowired
+    private AircraftRepository aircraftRepository;
 
     public List<Passenger> getAllPassengers() {
         return (List<Passenger>) passengerRepository.findAll();
@@ -21,6 +27,15 @@ public class PassengerService {
     }
 
     public Passenger createPassenger(Passenger passenger) {
+        List<Aircraft> requestedAircraftList = new ArrayList<>();
+
+        for (Aircraft aircraft : passenger.getAircraft()) {
+            Aircraft requestedAircraft = aircraftRepository.findById(aircraft.getId())
+                    .orElseThrow(() -> new RuntimeException("Aircraft not found"));
+            requestedAircraftList.add(requestedAircraft);
+        }
+        passenger.setAircraft(requestedAircraftList);
+
         return passengerRepository.save(passenger);
     }
 
@@ -34,7 +49,15 @@ public class PassengerService {
             passengerToUpdate.setLastName(updatedPassenger.getLastName());
             passengerToUpdate.setPhoneNumber(updatedPassenger.getPhoneNumber());
             passengerToUpdate.setCity(updatedPassenger.getCity());
-            passengerToUpdate.setAircraft(updatedPassenger.getAircraft());
+
+            List<Aircraft> requestedAircraftList = new ArrayList<>();
+
+            for (Aircraft aircraft : passengerOptional.get().getAircraft()) {
+                Aircraft requestedAircraft = aircraftRepository.findById(aircraft.getId())
+                        .orElseThrow(() -> new RuntimeException("Aircraft not found"));
+                requestedAircraftList.add(requestedAircraft);
+            }
+            passengerToUpdate.setAircraft(requestedAircraftList);
 
             return passengerRepository.save(passengerToUpdate);
         }

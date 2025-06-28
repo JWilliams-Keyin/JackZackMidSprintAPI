@@ -1,8 +1,11 @@
 package com.keyin.rest.city;
 
+import com.keyin.rest.airport.Airport;
+import com.keyin.rest.airport.AirportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +13,8 @@ import java.util.Optional;
 public class CityService {
     @Autowired
     private CityRepository cityRepository;
+    @Autowired
+    private AirportRepository airportRepository;
 
     public List<City> getAllCities() {
         return (List<City>) cityRepository.findAll();
@@ -21,6 +26,15 @@ public class CityService {
     }
 
     public City createCity(City city) {
+        List<Airport> requestedAirportsList = new ArrayList<>();
+
+        for (Airport airport : city.getAirports()) {
+            Airport requestedAirport = airportRepository.findById(airport.getId())
+                    .orElseThrow(() -> new RuntimeException("Airport not found"));
+            requestedAirportsList.add(requestedAirport);
+        }
+        city.setAirports(requestedAirportsList);
+
         return cityRepository.save(city);
     }
 
@@ -33,7 +47,15 @@ public class CityService {
             cityToUpdate.setName(updatedCity.getName());
             cityToUpdate.setState(updatedCity.getState());
             cityToUpdate.setPopulation(updatedCity.getPopulation());
-            cityToUpdate.setAirports(cityToUpdate.getAirports());
+
+            List<Airport> requestedAirportsList = new ArrayList<>();
+
+            for (Airport airport : cityOptional.get().getAirports()) {
+                Airport requestedAirport = airportRepository.findById(airport.getId())
+                        .orElseThrow(() -> new RuntimeException("Airport not found"));
+                requestedAirportsList.add(requestedAirport);
+            }
+            cityToUpdate.setAirports(requestedAirportsList);
 
             return cityRepository.save(cityToUpdate);
         }
