@@ -50,7 +50,7 @@ public class CityService {
 
             List<Airport> requestedAirportsList = new ArrayList<>();
 
-            for (Airport airport : cityOptional.get().getAirports()) {
+            for (Airport airport : cityToUpdate.getAirports()) {
                 Airport requestedAirport = airportRepository.findById(airport.getId())
                         .orElseThrow(() -> new RuntimeException("Airport not found"));
                 requestedAirportsList.add(requestedAirport);
