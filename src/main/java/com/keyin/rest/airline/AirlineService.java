@@ -51,7 +51,9 @@ public class AirlineService {
 
             if (updatedAirline.getAirlineName() != null) {
                 airlineToUpdate.setAirlineName(updatedAirline.getAirlineName());
-            } else if (updatedAirline.getAirlineFlights() != null) {
+            }
+
+            if (updatedAirline.getAirlineFlights() != null) {
                 List<Flight> requestedFlightsList = new ArrayList<>();
 
                 for (Flight flight : updatedAirline.getAirlineFlights()) {
