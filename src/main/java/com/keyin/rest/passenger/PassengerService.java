@@ -47,19 +47,32 @@ public class PassengerService {
         if (passengerOptional.isPresent()) {
             Passenger passengerToUpdate = passengerOptional.get();
 
-            passengerToUpdate.setFirstName(updatedPassenger.getFirstName());
-            passengerToUpdate.setLastName(updatedPassenger.getLastName());
-            passengerToUpdate.setPhoneNumber(updatedPassenger.getPhoneNumber());
-            passengerToUpdate.setCity(updatedPassenger.getCity());
-
-            List<Aircraft> requestedAircraftList = new ArrayList<>();
-
-            for (Aircraft aircraft : passengerOptional.get().getAircraft()) {
-                Aircraft requestedAircraft = aircraftRepository.findById(aircraft.getId())
-                        .orElseThrow(() -> new RuntimeException("Aircraft not found"));
-                requestedAircraftList.add(requestedAircraft);
+            if (updatedPassenger.getFirstName() != null) {
+                passengerToUpdate.setFirstName(updatedPassenger.getFirstName());
             }
-            passengerToUpdate.setAircraft(requestedAircraftList);
+
+            if (updatedPassenger.getLastName() != null) {
+                passengerToUpdate.setLastName(updatedPassenger.getLastName());
+            }
+
+            if (updatedPassenger.getPhoneNumber() != null) {
+                passengerToUpdate.setPhoneNumber(updatedPassenger.getPhoneNumber());
+            }
+
+            if (updatedPassenger.getCity() != null) {
+                passengerToUpdate.setCity(updatedPassenger.getCity());
+            }
+
+            if (updatedPassenger.getAircraft() != null) {
+                List<Aircraft> requestedAircraftList = new ArrayList<>();
+
+                for (Aircraft aircraft : passengerOptional.get().getAircraft()) {
+                    Aircraft requestedAircraft = aircraftRepository.findById(aircraft.getId())
+                            .orElseThrow(() -> new RuntimeException("Aircraft not found"));
+                    requestedAircraftList.add(requestedAircraft);
+                }
+                passengerToUpdate.setAircraft(requestedAircraftList);
+            }
 
             return passengerRepository.save(passengerToUpdate);
         }

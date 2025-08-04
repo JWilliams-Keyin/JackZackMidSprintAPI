@@ -1,6 +1,7 @@
 package com.keyin.rest.aircraft;
 
 import com.keyin.rest.airport.Airport;
+import com.keyin.rest.flight.Flight;
 import com.keyin.rest.passenger.Passenger;
 import jakarta.persistence.*;
 
@@ -21,7 +22,7 @@ public class Aircraft {
     private List<Passenger> aircraftPassengers;
 
     @OneToMany
-    private List<Airport> aircraftAirports;
+    private List<Flight> aircraftFlights;
 
     public Aircraft() {
     }
@@ -55,8 +56,8 @@ public class Aircraft {
         return aircraftPassengers;
     }
 
-    public List<Airport> getAircraftAirports() {
-        return aircraftAirports;
+    public List<Flight> getAircraftFlights() {
+        return aircraftFlights;
     }
 
     public void setId(long id) {
@@ -79,7 +80,7 @@ public class Aircraft {
         this.aircraftPassengers = aircraftPassengers;
     }
 
-    public void setAircraftAirports(List<Airport> aircraftAirports) {
-        this.aircraftAirports = aircraftAirports;
+    public void setAircraftFlights(List<Flight> aircraftFlights) {
+        this.aircraftFlights = aircraftFlights;
     }
 }
