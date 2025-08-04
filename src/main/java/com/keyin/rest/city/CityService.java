@@ -46,18 +46,28 @@ public class CityService {
         if (cityOptional.isPresent()) {
             City cityToUpdate = cityOptional.get();
 
-            cityToUpdate.setName(updatedCity.getName());
-            cityToUpdate.setState(updatedCity.getState());
-            cityToUpdate.setPopulation(updatedCity.getPopulation());
-
-            List<Airport> requestedAirportsList = new ArrayList<>();
-
-            for (Airport airport : cityToUpdate.getAirports()) {
-                Airport requestedAirport = airportRepository.findById(airport.getId())
-                        .orElseThrow(() -> new RuntimeException("Airport not found"));
-                requestedAirportsList.add(requestedAirport);
+            if (updatedCity.getName() != null) {
+                cityToUpdate.setName(updatedCity.getName());
             }
-            cityToUpdate.setAirports(requestedAirportsList);
+
+            if (updatedCity.getState() != null) {
+                cityToUpdate.setState(updatedCity.getState());
+            }
+
+            if (updatedCity.getPopulation() != 0) {
+                cityToUpdate.setPopulation(updatedCity.getPopulation());
+            }
+
+            if (updatedCity.getAirports() != null) {
+                List<Airport> requestedAirportsList = new ArrayList<>();
+
+                for (Airport airport : cityToUpdate.getAirports()) {
+                    Airport requestedAirport = airportRepository.findById(airport.getId())
+                            .orElseThrow(() -> new RuntimeException("Airport not found"));
+                    requestedAirportsList.add(requestedAirport);
+                }
+                cityToUpdate.setAirports(requestedAirportsList);
+            }
 
             return cityRepository.save(cityToUpdate);
         }

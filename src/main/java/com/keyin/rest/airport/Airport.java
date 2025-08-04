@@ -1,7 +1,10 @@
 package com.keyin.rest.airport;
 
 import com.keyin.rest.city.City;
+import com.keyin.rest.gate.Gate;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Airport {
@@ -15,6 +18,8 @@ public class Airport {
 
     @OneToOne
     private City airportCity;
+    @OneToMany
+    private List<Gate> airportGates;
 
     public Airport() {
 
@@ -45,6 +50,10 @@ public class Airport {
         return airportCity;
     }
 
+    public List<Gate> getAirportGates() {
+        return airportGates;
+    }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -59,5 +68,9 @@ public class Airport {
 
     public void setAirportCity(City airportCity) {
         this.airportCity = airportCity;
+    }
+
+    public void setAirportGates(List<Gate> airportGates) {
+        this.airportGates = airportGates;
     }
 }
