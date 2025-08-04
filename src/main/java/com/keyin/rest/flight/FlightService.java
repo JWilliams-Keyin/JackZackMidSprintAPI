@@ -1,17 +1,8 @@
 package com.keyin.rest.flight;
 
-import com.keyin.rest.aircraft.Aircraft;
-import com.keyin.rest.aircraft.AircraftRepository;
-import com.keyin.rest.airport.Airport;
-import com.keyin.rest.airport.AirportRepository;
-import com.keyin.rest.gate.Gate;
-import com.keyin.rest.gate.GateRepository;
-import com.keyin.rest.airline.Airline;
-import com.keyin.rest.airline.AirlineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,14 +10,6 @@ import java.util.Optional;
 public class FlightService {
     @Autowired
     private FlightRepository flightRepository;
-    @Autowired
-    private AircraftRepository aircraftRepository;
-    @Autowired
-    private AirportRepository airportRepository;
-    @Autowired
-    private GateRepository gateRepository;
-    @Autowired
-    private AirlineRepository airlineRepository;
 
     public Flight findByFlightNumber(String flightNumber) {
         return flightRepository.findByFlightNumber(flightNumber);
