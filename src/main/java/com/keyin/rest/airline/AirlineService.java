@@ -20,6 +20,12 @@ public class AirlineService {
         return airlineRepository.findByAirlineName(airlineName);
     }
 
+    public Airline getAirlineById(long id) {
+        Optional<Airline> airlineOptional = airlineRepository.findById(id);
+
+        return airlineOptional.orElse(null);
+    }
+
     public List<Airline> getAllAirlines() {
         return (List<Airline>) airlineRepository.findAll();
     }

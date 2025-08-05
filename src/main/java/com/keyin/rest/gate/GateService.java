@@ -15,6 +15,12 @@ public class GateService {
         return gateRepository.findByGateNumber(gateNumber);
     }
 
+    public Gate getGateById(long id) {
+        Optional<Gate> gateOptional = gateRepository.findById(id);
+
+        return gateOptional.orElse(null);
+    }
+
     public List<Gate> getAllGates() {
         return (List<Gate>) gateRepository.findAll();
     }

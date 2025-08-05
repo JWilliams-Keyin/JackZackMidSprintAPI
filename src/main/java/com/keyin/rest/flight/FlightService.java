@@ -15,6 +15,12 @@ public class FlightService {
         return flightRepository.findByFlightNumber(flightNumber);
     }
 
+    public Flight getFlightById(long id) {
+        Optional<Flight> flightOptional = flightRepository.findById(id);
+
+        return flightOptional.orElse(null);
+    }
+
     public List<Flight> getAllFlights() {
         return (List<Flight>) flightRepository.findAll();
     }
