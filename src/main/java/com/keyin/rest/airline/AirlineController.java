@@ -18,7 +18,7 @@ public class AirlineController {
         return airlineService.getAllAirlines();
     }
 
-    @GetMapping("/aircraft/{id}")
+    @GetMapping("/airline/{id}")
     public Airline getAirlineById(@PathVariable long id) {
         return airlineService.getAirlineById(id);
     }
