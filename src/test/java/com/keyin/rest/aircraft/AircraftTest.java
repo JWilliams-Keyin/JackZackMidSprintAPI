@@ -126,14 +126,4 @@ public class AircraftTest {
         mockMvc.perform(delete("/aircraft/{id}", 1L))
                 .andExpect(status().isOk());
     }
-
-    @Test //Fail Test
-    public void testGetAircraftById_Fail() throws Exception {
-        when(aircraftService.getAirCraftById(1L)).thenReturn(sampleAircraft);
-
-        mockMvc.perform(get("/aircraft/{id}", 1L))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.aircraftType", is("Airbus A320"))); // This will fail
-    }
-
 }
